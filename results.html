@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نتائج العد التنازلي</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: linear-gradient(to right, #4e54c8, #8f94fb);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 20px 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    }
+    h1, p {
+      margin-bottom: 20px;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      background-color: #6c63ff;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #5348c8;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 id="title"></h1>
+    <p id="countdown"></p>
+    <button onclick="copyResults()">نسخ النتائج</button>
+    <button onclick="shareResults()">مشاركة النتائج</button>
+    <button onclick="goBack()">رجوع إلى الصفحة الرئيسية</button>
+  </div>
+
+  <script>
+    function calculateCountdown() {
+      const name = localStorage.getItem("countdownName");
+      const year = parseInt(localStorage.getItem("countdownYear"));
+      const month = parseInt(localStorage.getItem("countdownMonth")) - 1; // الأشهر تبدأ من 0
+      const day = parseInt(localStorage.getItem("countdownDay"));
+      const hour = parseInt(localStorage.getItem("countdownHour"));
+
+      const targetDate = new Date(year, month, day, hour, 0, 0);
+      const now = new Date();
+
+      if (targetDate <= now) {
+        return `الوقت المحدد لـ "${name}" قد مضى!`;
+      }
+
+      const diff = targetDate - now;
+      const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365));
+      const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+      return `الوقت المتبقي لـ "${name}":<br><strong>${years}</strong> سنة<br><strong>${days}</strong> يوم<br><strong>${hours}</strong> ساعة`;
+    }
+
+    function displayResults() {
+      const name = localStorage.getItem("countdownName");
+      document.getElementById("title").textContent = `العد التنازلي لـ "${name}"`;
+      document.getElementById("countdown").innerHTML = calculateCountdown();
+    }
+
+    function copyResults() {
+      const results = document.getElementById("countdown").textContent;
+      navigator.clipboard.writeText(results).then(() => {
+        alert("تم نسخ النتائج إلى الحافظة!");
+      });
+    }
+
+    function shareResults() {
+      const results = document.getElementById("countdown").textContent;
+      if (navigator.share) {
+        navigator.share({ text: results }).catch(err => alert("المشاركة غير مدعومة!"));
+      } else {
+        alert("المشاركة غير مدعومة على هذا الجهاز.");
+      }
+    }
+
+    function goBack() {
+      window.location.href = "index.html"; // العودة إلى الصفحة الرئيسية
+    }
+
+    // عرض النتائج عند تحميل الصفحة
+    displayResults();
+  </script>
+  <!-- أضف داخل body، قبل نهاية الوسم مباشرة -->
+<div class="footer">
+  <p>© 2024 جميع الحقوق محفوظة. تصميم وتطوير بواسطة علي الطائي.</p>
+</div>
+
+<style>
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px 0;
+    font-size: 14px;
+  }
+</style>
+</body>
+</html>

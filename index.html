@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>العد التنازلي</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: linear-gradient(to right, #4e54c8, #8f94fb);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 20px 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin: 10px 0;
+      font-size: 18px;
+    }
+    input {
+      padding: 8px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #6c63ff;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #5348c8;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>العد التنازلي</h1>
+    <label for="name">أدخل اسم العد التنازلي:</label>
+    <input type="text" id="name" placeholder="اسم العد">
+    
+    <label for="year">أدخل السنة:</label>
+    <input type="number" id="year" placeholder="مثال: 2025">
+
+    <label for="month">أدخل الشهر:</label>
+    <input type="number" id="month" placeholder="مثال: 12 (الشهر)">
+
+    <label for="day">أدخل اليوم:</label>
+    <input type="number" id="day" placeholder="مثال: 25 (اليوم)">
+
+    <label for="hour">أدخل الساعة (24 ساعة):</label>
+    <input type="number" id="hour" placeholder="مثال: 14 (الساعة)">
+    
+    <button onclick="submitData()">حساب الوقت المتبقي</button>
+  </div>
+
+  <script>
+    function submitData() {
+      const name = document.getElementById("name").value;
+      const year = document.getElementById("year").value;
+      const month = document.getElementById("month").value;
+      const day = document.getElementById("day").value;
+      const hour = document.getElementById("hour").value;
+
+      if (!name || !year || !month || !day || !hour) {
+        alert("يرجى إدخال جميع الحقول!");
+        return;
+      }
+
+      // حفظ البيانات في الـ localStorage
+      localStorage.setItem("countdownName", name);
+      localStorage.setItem("countdownYear", year);
+      localStorage.setItem("countdownMonth", month);
+      localStorage.setItem("countdownDay", day);
+      localStorage.setItem("countdownHour", hour);
+
+      // الانتقال إلى صفحة النتائج
+      window.location.href = "results.html";
+    }
+  </script>
+  <!-- أضف داخل body، قبل نهاية الوسم مباشرة -->
+<div class="footer">
+  <p>© 2024 جميع الحقوق محفوظة. تصميم وتطوير بواسطة  علي الطائي.</p>
+</div>
+
+<style>
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px 0;
+    font-size: 14px;
+  }
+</style>
+</body>
+</html>
